@@ -1,6 +1,10 @@
 # Maze générator 
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d271635c0dcf4bc39c5c4d48c3d56691)](https://app.codacy.com/gh/SwannHERRERA/maze-generator?utm_source=github.com&utm_medium=referral&utm_content=SwannHERRERA/maze-generator&utm_campaign=Badge_Grade)
+
 The goal of the project is to make a frontend application that will be hosted on netlify
+
+[website on main branch](https://zigzag-generator.netlify.app/)
 
 This application will allow you to generate a maze from a form according to the criteria of the form.
 
@@ -43,7 +47,7 @@ Once the form is generated a button appears to reveal the best solution.
 
 
 # Team 
-|                                                  |
+
 | :----------------------------------------------- |
 | [Coraline ESEDJI](https://github.com/coco-as-co)  | 
 | [Swann HERRERA](https://github.com/SwannHERRERA) |
