@@ -2,6 +2,8 @@
 
 The goal of the project is to make a frontend application that will be hosted on netlify
 
+[website on main branch](https://zigzag-generator.netlify.app/)
+
 This application will allow you to generate a maze from a form according to the criteria of the form.
 
 This labyrinth will be a 2d canvas at first and then we'll try to use SVG.
