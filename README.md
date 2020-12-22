@@ -45,7 +45,7 @@ Once the form is generated a button appears to reveal the best solution.
 
 
 # Team 
-|                                                  |
+
 | :----------------------------------------------- |
 | [Coraline ESEDJI](https://github.com/coco-as-co)  | 
 | [Swann HERRERA](https://github.com/SwannHERRERA) |
