@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap");
+
+@tailwind base;
+@tailwind components;
+
+@layer base {
+  h1 {
+    @apply text-2xl font-sans text-center text-orange-500 p-4 bg-gray-900 font-semibold;
+  }
+}
+
+@tailwind utilities;
