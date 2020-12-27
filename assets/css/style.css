@@ -22,7 +22,7 @@
     @apply block;
   }
 
-  .form-control {
+  input[type="text"] {
     @apply rounded bg-gray-800 border-lime-400 border-solid border px-2;
   }
 }
