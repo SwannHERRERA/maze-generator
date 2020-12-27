@@ -7,6 +7,24 @@
   h1 {
     @apply text-2xl font-sans text-center text-orange-500 p-4 bg-gray-900 font-semibold;
   }
+  .card-container {
+    @apply mx-auto w-9/12 mt-5;
+  }
+  .card {
+    @apply rounded bg-gray-900 border-lime-400 border-solid border p-4;
+  }
+
+  .form-group {
+    @apply text-orange-500 font-sans font-semibold;
+  }
+
+  label {
+    @apply block;
+  }
+
+  .form-control {
+    @apply rounded bg-gray-800 border-lime-400 border-solid border px-2;
+  }
 }
 
 @tailwind utilities;
