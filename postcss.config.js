@@ -1,19 +1,16 @@
-const PurgeCSS = require("purgecss");
-
-const purge = await new PurgeCSS().purge({
+const purgecss = require("@fullhuman/postcss-purgecss")({
   content: ["./public/index.html"],
   css: ["./assets/css/*.css"],
+
+  // Include any special characters you're using in this regular expression
 
   defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
 });
 
-const plugins = {
-  tailwindcss: {},
-  autoprefixer: {},
-  purgecss: process.env.NODE_ENV === "production" ? purge : "",
-};
-console.log(plugins);
-
 module.exports = {
-  plugins,
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+    purgecss: process.env.NODE_ENV === "production" ? purgecss : "",
+  },
 };
