@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "@snowpack/plugin-typescript",
+    "@snowpack/plugin-postcss"
+  ],
+  "mount": {
+    "src": "/dist",
+    "public": "/"
+  }
+}
