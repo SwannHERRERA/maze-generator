@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "./node_modules/.bin/cucumber-js -p default",
+    "test-cy": "cypress:open",
     "start": "snowpack dev",
     "build": "cross-env NODE_ENV=production npx snowpack build"
   },
@@ -30,6 +31,7 @@
     "@types/cucumber": "^7.0.0",
     "chai": "^4.2.0",
     "cucumber-tsflow": "^4.0.0-rc.1",
+    "cypress": "^6.2.1",
     "postcss-cli": "^8.3.1",
     "snowpack": "^2.18.5",
     "ts-jest": "^26.4.4",
