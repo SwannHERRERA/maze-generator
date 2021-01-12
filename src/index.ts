@@ -21,9 +21,15 @@ const mazeConfig: MazeConfig = {
 
 const rand = new Rand();
 
-const maze = new Maze(mazeConfig, rand);
+const form = document.querySelector("#maze-generation-form");
 
-maze.build();
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    new Maze(mazeConfig, rand);
+  });
+}
+
 // function add(a: number, b: number): number {
 //   return a + b;
 // }
