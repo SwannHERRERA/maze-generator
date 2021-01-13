@@ -26,6 +26,7 @@ const form = document.querySelector("#maze-generation-form");
 if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    new Maze(mazeConfig, rand);
+    const maze = new Maze(mazeConfig, rand);
+    maze.build();
   });
 }

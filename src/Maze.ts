@@ -10,13 +10,14 @@ import Random from "./Random";
 export default class Maze implements MazeConfig {
   typeOfCell: typeOfCell;
   shapeOfTheMaze: shapeOfTheMaze;
-  whereToStart: String;
-  color: String;
-  size: Number;
+  whereToStart: string;
+  color: string;
+  size: number;
   typeOfSolution: typeOfSolution;
-  crossing: Boolean;
-  manualSolvingSystem: Boolean;
+  crossing: boolean;
+  manualSolvingSystem: boolean;
 
+  Random: Random;
   value: number[][];
 
   constructor(params: MazeConfig, Random: Random) {
@@ -28,12 +29,14 @@ export default class Maze implements MazeConfig {
     this.typeOfSolution = params.typeOfSolution;
     this.crossing = params.crossing;
     this.manualSolvingSystem = params.manualSolvingSystem;
-
+    this.Random = Random;
     this.value = [];
+
     for (let i = 0; i < this.size; i++) {
       this.value[i] = [];
     }
   }
+
   createGrid() {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
@@ -55,15 +58,28 @@ export default class Maze implements MazeConfig {
   }
 
   private isNotLast(i: number, j: number): boolean {
-    if (i == this.size || j == this.size) {
+    const size = this.size - 1;
+    if (i == size || j == size) {
       return false;
     }
     return true;
+  }
+
+  fillWithRandomValue() {
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
+        this.value[i][j] = this.Random.nextInt(10);
+      }
+    }
   }
 
   getMaze() {
     return this.value;
   }
 
-  build() {}
+  build() {
+    this.createGrid();
+    this.fillWithRandomValue();
+    console.log(this.getMaze());
+  }
 }

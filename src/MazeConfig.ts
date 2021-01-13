@@ -20,12 +20,12 @@ enum typeOfSolution {
 interface MazeConfig {
   typeOfCell: typeOfCell;
   shapeOfTheMaze: shapeOfTheMaze;
-  whereToStart: String;
-  color: String;
-  size: Number;
+  whereToStart: string;
+  color: string;
+  size: number;
   typeOfSolution: typeOfSolution;
-  crossing: Boolean;
-  manualSolvingSystem: Boolean;
+  crossing: boolean;
+  manualSolvingSystem: boolean;
 }
 
 export { MazeConfig, shapeOfTheMaze, typeOfCell, typeOfSolution };
