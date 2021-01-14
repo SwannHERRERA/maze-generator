@@ -47,7 +47,7 @@ class FakeRand implements Random {
    * inclusive, to max, exclusive.
    */
   public nextInt(max: number) {
-    if (this.cursor >= 36) {
+    if (this.cursor >= this.value.length) {
       this.cursor = 0;
     }
     const res = this.value[this.cursor] % max;

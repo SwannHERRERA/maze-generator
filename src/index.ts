@@ -13,7 +13,7 @@ const mazeConfig: MazeConfig = {
   shapeOfTheMaze: shapeOfTheMaze.rectangular,
   whereToStart: "top-left",
   color: "#003021",
-  size: 40,
+  size: 41,
   typeOfSolution: typeOfSolution.shortest,
   crossing: false,
   manualSolvingSystem: false,

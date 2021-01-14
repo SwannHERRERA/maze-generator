@@ -6,6 +6,7 @@ import {
   typeOfSolution,
 } from "./MazeConfig";
 import Random from "./Random";
+import MazeDrawer from "./presentation/MazeDrawer";
 
 export default class Maze implements MazeConfig {
   typeOfCell: typeOfCell;
@@ -25,6 +26,11 @@ export default class Maze implements MazeConfig {
     this.shapeOfTheMaze = params.shapeOfTheMaze;
     this.whereToStart = params.whereToStart;
     this.color = params.color;
+
+    if (params.size < 3) {
+      throw new Error("Maze is to small");
+    }
+
     this.size = params.size;
     this.typeOfSolution = params.typeOfSolution;
     this.crossing = params.crossing;
@@ -68,7 +74,9 @@ export default class Maze implements MazeConfig {
   fillWithRandomValue() {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
-        this.value[i][j] = this.Random.nextInt(10);
+        if (this.value[i][j] == 0) {
+          this.value[i][j] = this.Random.nextInt(10);
+        }
       }
     }
   }
@@ -77,9 +85,29 @@ export default class Maze implements MazeConfig {
     return this.value;
   }
 
+  breakWall() {
+    while (!this.buildIsFinish()) {}
+  }
+
+  private buildIsFinish(): boolean {
+    const firstCasll = this.value[1][1];
+    for (let i = 0; i < this.size; i += 2) {
+      for (let j = 0; j < this.size; j += 2) {
+        if (firstCasll != this.value[i][j]) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
   build() {
     this.createGrid();
     this.fillWithRandomValue();
-    console.log(this.getMaze());
+    this.draw();
+  }
+
+  draw() {
+    new MazeDrawer(this);
   }
 }
