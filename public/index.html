@@ -3,19 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Maze Generator</title>
     <link rel="stylesheet" href="./style.css" />
-    <script src="../dist/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
+    <script type="module" src="../dist/index.js"></script>
   </head>
   <body class="bg-gray-100 dark:bg-gray-800 min-h-screen">
     <h1>Maze generator</h1>
     <div class="card-container">
-      <div class="card">
-        <div class="form-group">
-          <label for="">Hauteur</label>
-          <input type="text" />
+      <form id="maze-generation-form" class="card">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="">Taille</label>
+            <input type="text" />
+          </div>
+          <div class="form-group">
+            <label for="">Type of sale</label>
+            <select name="" id="">
+              <option value="triangular">triangular</option>
+              <option value="Octogonal">Octogonal</option>
+              <option value="Exagonal">Exagonal</option>
+              <option value="Square">Square</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">Shape of the maze</label>
+            <select name="" id="">
+              <option value="Hexagonal">Hexagonal</option>
+              <option value="circular">circular</option>
+              <option value="triangular">triangular</option>
+              <option value="rectangular">rectangular</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">Where to start</label>
+            <input type="text" />
+          </div>
+          <div class="form-group">
+            <label for="">Color</label>
+            <input type="text" />
+          </div>
         </div>
-      </div>
+        <p class="text-center"><button class="btn">Générer</button></p>
+      </form>
     </div>
+    <div id="result"></div>
   </body>
 </html>

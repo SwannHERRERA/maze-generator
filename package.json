@@ -4,10 +4,11 @@
   "description": "A maze genrator full tested :)",
   "main": "index.ts",
   "scripts": {
-    "test": "jest",
-    "test-watch": "jest --watchAll",
+    "test": "./node_modules/.bin/cucumber-js -p default",
+    "test-cy": "cypress:open",
     "start": "snowpack dev",
-    "build": "cross-env NODE_ENV=production npx snowpack build"
+    "build": "cross-env NODE_ENV=production npx snowpack build",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -25,22 +26,25 @@
   "devDependencies": {
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
+    "@cucumber/cucumber": "^7.0.0",
     "@snowpack/plugin-babel": "^2.1.5",
-    "@types/jest": "^26.0.19",
-    "babel-jest": "^26.6.3",
-    "jest": "^26.6.3",
-    "jest-cucumber": "^3.0.0",
+    "@types/chai": "^4.2.14",
+    "@types/cucumber": "^7.0.0",
+    "chai": "^4.2.0",
+    "cucumber-tsflow": "^4.0.0-rc.1",
+    "cypress": "^6.2.1",
+    "postcss-cli": "^8.3.1",
     "snowpack": "^2.18.5",
     "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1",
     "tslint": "^6.1.3",
-    "postcss-cli": "^8.3.1",
     "typescript": "^4.1.3"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^3.1.3",
     "@snowpack/plugin-postcss": "^1.0.11",
     "@snowpack/plugin-typescript": "^1.1.1",
+    "@svgdotjs/svg.js": "^3.0.16",
     "autoprefixer": "^10.1.0",
     "cross-env": "^7.0.3",
     "postcss": "^8.2.1",
