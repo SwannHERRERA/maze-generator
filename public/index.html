@@ -11,7 +11,7 @@
   <body class="bg-gray-100 dark:bg-gray-800 min-h-screen">
     <h1>Maze generator</h1>
     <div class="card-container">
-      <form class="card">
+      <form id="maze-generation-form" class="card">
         <div class="form-grid">
           <div class="form-group">
             <label for="">Taille</label>
@@ -43,20 +43,10 @@
             <label for="">Color</label>
             <input type="text" />
           </div>
-          <!-- 
-            ## Feature list
-            - type of cell (Square, Exagonal, Octogonal, triangular)
-            - Shape of the Maze (Hexagonal, circular, triangular, rectangular ...)
-            - Where to start
-            - Color
-            - Size
-            - Type of solution (longest, shortest)
-            - Crossing
-            - Manual solving system
-          -->
         </div>
         <p class="text-center"><button class="btn">Générer</button></p>
       </form>
     </div>
+    <div id="result"></div>
   </body>
 </html>

@@ -19,3 +19,9 @@ This projet respect [Semantic Versioning](https://semver.org/) and the [recomman
 ## [0.2.0] - 2021-01-05
 - change test framework
 
+
+## [0.3.0] - 2021-01-14
+### Added
+- SVG lib
+- change conf typescript (esNext and commonjs)
+- generate basic grid with random value inside
