@@ -1,38 +1,44 @@
 import { binding, given, then, when } from "cucumber-tsflow";
 import Maze from "../Maze";
-import { assert } from "chai";
+import { assert, expect } from "chai";
 import Random from "../Random";
 import getDefaultMazeConfig from "./MazeTestHelper";
-import {
-  MazeConfig,
-  shapeOfTheMaze,
-  typeOfCell,
-  typeOfSolution,
-} from "../MazeConfig";
-import Rand from "../Rand";
+import { MazeConfig } from "../MazeConfig";
+import FakeRand from "../FakeRand";
 
 @binding()
 export class CreateGridSteps {
+  private size: number = 0;
+  private config: MazeConfig = getDefaultMazeConfig();
+  private random: Random = new FakeRand();
+
   private maze: Maze;
 
   constructor() {
-    // i do this just for have maze of type Maze
-    const config = getDefaultMazeConfig();
-    const rand: Random = new Rand();
-    this.maze = new Maze(config, rand);
+    this.maze = new Maze(this.config, this.random);
   }
 
   @given(/I want to create a grid of isolate cell of size (\d*)/)
   createAGridOfIsolateCell(size: string) {
-    const config = getDefaultMazeConfig();
-    config.size = Number(size);
-    const rand: Random = new Rand(); // To fake after
-    this.maze = new Maze(config, rand);
+    this.config.size = Number(size);
+
+    this.maze = new Maze(this.config, this.random);
   }
 
-  @when(/when i run createGrid/)
+  @given(/a size of (\d*)/)
+  givenASizeOf(size: string) {
+    this.config.size = Number(size);
+  }
+
+  @when(/i run createGrid/)
   whenIRunCreateGrid() {
     this.maze.createGrid();
+  }
+
+  @when(/i want to create maze/)
+  @then(/it should throw an error/)
+  whenIWantToCreateMaze() {
+    expect(() => new Maze(this.config, this.random)).to.throw();
   }
 
   @then(/It should return a array with isolate cell of 0 by -1 of size (\w+)/)
@@ -67,8 +73,6 @@ export class CreateGridSteps {
       [-1, -1, -1, -1, -1, -1, -1],
     ]);
     const actual = this.maze.getMaze();
-
-    // console.log(actual, expected);
 
     assert.deepEqual(actual, expected.get(size));
   }

@@ -28,7 +28,7 @@ export default class Maze implements MazeConfig {
     this.color = params.color;
 
     if (params.size < 3) {
-      throw new Error("Maze is to small");
+      throw new Error("Maze is too small");
     }
 
     this.size = params.size;

@@ -3,7 +3,7 @@ Feature: create Grid
 
   Scenario: test init grid function
     Given I want to create a grid of isolate cell of size <size>
-    When when i run createGrid
+    When i run createGrid
     Then It should return a array with isolate cell of 0 by -1 of size <size>
 
     Examples:
@@ -12,3 +12,8 @@ Feature: create Grid
       | 5    |
       | 4    |
       | 3    |
+
+  Scenario: test very small grid
+    Given a size of 2
+    When i want to create maze
+    Then it should throw an error

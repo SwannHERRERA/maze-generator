@@ -22,7 +22,6 @@ class MazeDrawer {
       translateY: this.size * scale,
       scale: scale,
     });
-    // this.drawer.scale(20);
   }
 
   private clearDest(dest: string) {
@@ -37,9 +36,13 @@ class MazeDrawer {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         const color = this.selectColor(i, j);
-        this.drawer.rect(1, 1).attr({ fill: color }).move(i, j);
+        this.createCell(color, i, j);
       }
     }
+  }
+
+  private createCell(color: string, i: number, j: number) {
+    this.drawer.rect(1, 1).attr({ fill: color }).move(i, j);
   }
 
   private selectColor(i: number, j: number) {

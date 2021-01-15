@@ -1,44 +1,7 @@
 import Random from "./Random";
 
 class FakeRand implements Random {
-  value: number[] = [
-    7,
-    6,
-    9,
-    7,
-    6,
-    9,
-    0,
-    9,
-    4,
-    8,
-    9,
-    7,
-    6,
-    5,
-    8,
-    8,
-    7,
-    0,
-    3,
-    1,
-    0,
-    1,
-    5,
-    3,
-    1,
-    3,
-    3,
-    6,
-    9,
-    1,
-    1,
-    5,
-    2,
-    0,
-    3,
-    8,
-  ];
+  value: number[] = [7, 6, 9, 7, 6, 5, 0, 4, 8, 1, 2, 3];
   cursor: number = 0;
 
   /**
