@@ -17,6 +17,7 @@ export default class Maze implements MazeConfig {
   typeOfSolution: typeOfSolution;
   crossing: boolean;
   manualSolvingSystem: boolean;
+  drawer: MazeDrawer = new MazeDrawer(this);
 
   Random: Random;
   value: number[][];
@@ -60,12 +61,12 @@ export default class Maze implements MazeConfig {
   }
 
   private isNotWall(i: number, j: number): boolean {
-    return i % 2 == 1 && j % 2 == 1 && this.isNotLast(i, j);
+    return i % 2 === 1 && j % 2 === 1 && this.isNotLast(i, j);
   }
 
   private isNotLast(i: number, j: number): boolean {
     const size = this.size - 1;
-    if (i == size || j == size) {
+    if (i === size || j === size) {
       return false;
     }
     return true;
@@ -74,7 +75,7 @@ export default class Maze implements MazeConfig {
   fillWithRandomValue() {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
-        if (this.value[i][j] == 0) {
+        if (this.value[i][j] === 0) {
           this.value[i][j] = this.Random.nextInt(10);
         }
       }
@@ -93,7 +94,7 @@ export default class Maze implements MazeConfig {
     const firstCasll = this.value[1][1];
     for (let i = 0; i < this.size; i += 2) {
       for (let j = 0; j < this.size; j += 2) {
-        if (firstCasll != this.value[i][j]) {
+        if (firstCasll !== this.value[i][j]) {
           return false;
         }
       }
@@ -103,11 +104,13 @@ export default class Maze implements MazeConfig {
 
   build() {
     this.createGrid();
+    this.draw();
+
     this.fillWithRandomValue();
     this.draw();
   }
 
   draw() {
-    new MazeDrawer(this);
+    this.drawer.draw();
   }
 }

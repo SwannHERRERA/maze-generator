@@ -4,37 +4,36 @@ import Maze from "../Maze";
 class MazeDrawer {
   maze: Maze;
   drawer: Svg;
-  size: number;
+  htmlOutput: string;
+  scale: number;
+
   constructor(maze: Maze) {
-    const scale = 20;
-    const htmlOutput = "#result";
-
-    this.clearDest(htmlOutput);
-
+    this.scale = 20;
+    this.htmlOutput = "#result";
     this.maze = maze;
-    this.size = this.maze.size;
-
-    this.drawer = SVG().addTo(htmlOutput).size(this.size, this.size);
-    this.draw();
-
-    this.drawer.transform({
-      translateX: this.size * scale,
-      translateY: this.size * scale,
-      scale: scale,
-    });
+    this.drawer = SVG();
   }
 
-  private clearDest(dest: string) {
-    const element = document.querySelector(dest);
+  private clearDest() {
+    const element = document.querySelector(this.htmlOutput);
     if (!element) {
-      throw new Error(`element ${dest} not find`);
+      throw new Error(`element ${this.htmlOutput} not find`);
     }
     element.innerHTML = "";
   }
 
-  private draw() {
-    for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j < this.size; j++) {
+  draw() {
+    this.clearDest();
+    this.drawer = SVG()
+      .addTo(this.htmlOutput)
+      .size(this.maze.size, this.maze.size);
+    this.drawer.transform({
+      translateX: (this.maze.size * this.scale) / 2,
+      translateY: (this.maze.size * this.scale) / 2,
+      scale: this.scale,
+    });
+    for (let i = 0; i < this.maze.size; i++) {
+      for (let j = 0; j < this.maze.size; j++) {
         const color = this.selectColor(i, j);
         this.createCell(color, i, j);
       }
@@ -46,46 +45,25 @@ class MazeDrawer {
   }
 
   private selectColor(i: number, j: number) {
-    let color;
-    switch (this.maze.value[i][j]) {
-      case -1:
-        color = "#03071e";
-        break;
-      case 0:
-        color = "#370617";
-        break;
-      case 1:
-        color = "#6a040f";
-        break;
-      case 2:
-        color = "#9d0208";
-        break;
-      case 3:
-        color = "#d00000";
-        break;
-      case 4:
-        color = "#dc2f02";
-        break;
-      case 5:
-        color = "#e85d04";
-        break;
-      case 6:
-        color = "#f48c06";
-        break;
-      case 7:
-        color = "#faa307";
-        break;
-      case 8:
-        color = "#ffba08";
-        break;
-      case 9:
-        color = "#ffb703";
-        break;
-
-      default:
-        throw new Error("unexpected value should be between -1 and 9");
+    const colors = [
+      "#03071e",
+      "#370617",
+      "#6a040f",
+      "#9d0208",
+      "#d00000",
+      "#dc2f02",
+      "#e85d04",
+      "#f48c06",
+      "#faa307",
+      "#ffb703",
+    ];
+    if (this.maze.value[i][j] > colors.length) {
+      throw new Error("Invalid color selected");
     }
-    return color;
+    if (this.maze.value[i][j] === -1) {
+      return "#ccccccc";
+    }
+    return colors[this.maze.value[i][j]];
   }
 }
 

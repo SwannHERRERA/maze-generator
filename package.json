@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "./node_modules/.bin/cucumber-js -p default",
-    "test-cy": "cypress:open",
+    "test-cy": "./node_modules/.bin/cypress open",
     "start": "snowpack dev",
     "build": "cross-env NODE_ENV=production npx snowpack build",
     "tsc": "tsc"
