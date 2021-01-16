@@ -17,7 +17,7 @@ context("Actions", () => {
   });
 
   it("should generate the maze", () => {
-      cy.get('[data-cy=submit-form]').click();
-
+      cy.get('[data-cy=submit-button]').click();
+      cy.get('[data-cy=result-div]').children('svg');
     });
 });
