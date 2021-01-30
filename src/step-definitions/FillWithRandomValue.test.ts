@@ -22,6 +22,14 @@ export class FillWithRandomValueSteps {
     [-1, -1, -1, -1, -1],
   ];
 
+  private expectedMazeForSize5WithStartAndEnd = [
+    [-1, -1, -1, -1, -1],
+    [0, 7, -1, 6, -1],
+    [-1, -1, -1, -1, -1],
+    [-1, 9, -1, 7, -1],
+    [-1, -1, -1, 0, -1],
+  ];
+
   @given(/a Maze of size (\d*)/)
   givenAMazeOfSize(size: string) {
     this.mazeSize = Number(size);
@@ -35,6 +43,11 @@ export class FillWithRandomValueSteps {
   @when(/I call fillWithRandomValue/)
   whenICallFillWithRandomValue() {
     this.maze?.fillWithRandomValue();
+  }
+
+  @when(/i try to create the start and the end/)
+  whenIcreateStartAndEnd() {
+    this.maze?.createStartAndEnd();
   }
 
   @then(/the value should be as expected/)

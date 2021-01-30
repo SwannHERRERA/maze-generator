@@ -82,6 +82,11 @@ export default class Maze implements MazeConfig {
     }
   }
 
+  createStartAndEnd() {
+    this.value[1][0] = 0;
+    this.value[this.size - 2][this.size] = 0;
+  }
+
   getMaze() {
     return this.value;
   }
@@ -104,6 +109,7 @@ export default class Maze implements MazeConfig {
 
   build() {
     this.createGrid();
+    this.createStartAndEnd();
     this.draw();
 
     this.fillWithRandomValue();
