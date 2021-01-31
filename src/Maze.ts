@@ -6,7 +6,7 @@ import {
   typeOfSolution,
 } from "./MazeConfig";
 import Random from "./Random";
-// import MazeDrawer from "./presentation/MazeDrawer";
+import MazeDrawer from "./presentation/MazeDrawer";
 
 export default class Maze implements MazeConfig {
   typeOfCell: typeOfCell;
@@ -17,7 +17,7 @@ export default class Maze implements MazeConfig {
   typeOfSolution: typeOfSolution;
   crossing: boolean;
   manualSolvingSystem: boolean;
-  // drawer: MazeDrawer = new MazeDrawer(this);
+  drawer: MazeDrawer = new MazeDrawer(this);
 
   Random: Random;
   value: number[][];
@@ -112,10 +112,10 @@ export default class Maze implements MazeConfig {
     this.createStartAndEnd();
     this.fillWithRandomValue();
 
-    // this.draw();
+    this.draw();
   }
 
-  // draw() {
-  //   this.drawer.draw();
-  // }
+  draw() {
+    this.drawer.draw();
+  }
 }
