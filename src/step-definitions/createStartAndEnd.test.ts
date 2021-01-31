@@ -13,7 +13,7 @@ export class createStartAndEndSteps {
   private rand: Random = new FakeRand();
   private mazeConfig: MazeConfig = getDefaultMazeConfig();
 
-  @given(/a Maze of size (\d*)/)
+  @given(/i want to create a Maze size (\d*) with start and stop/)
   givenAMazeOfSize(size: string) {
     this.mazeSize = Number(size);
 
