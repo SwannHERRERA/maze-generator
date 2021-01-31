@@ -12,7 +12,7 @@ const random: Random = new FakeRand();
 
 let maze: Maze;
 
-Given("I want to create a grid of isolate cell of size {number}", (size) => {
+Given(/I want to create a grid of isolate cell of size (\d*)/, (size) => {
   config.size = size;
   maze = new Maze(config, random);
 });
@@ -26,7 +26,7 @@ When("i want to create a maze it should throw an error", () => {
 });
 
 Then(
-  "It should return a array with isolate cell of 0 by -1 of size {number}",
+  /It should return a array with isolate cell of 0 by -1 of size (\d*)/,
   () => {
     const expected = new Map();
     expected.set(3, [
