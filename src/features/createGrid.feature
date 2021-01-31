@@ -1,4 +1,3 @@
-# features/bank-account.feature
 Feature: create Grid
 
   Scenario: test init grid function
