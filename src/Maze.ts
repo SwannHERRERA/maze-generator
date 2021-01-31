@@ -83,8 +83,8 @@ export default class Maze implements MazeConfig {
   }
 
   createStartAndEnd() {
-    this.value[1][0] = 0;
-    this.value[this.size - 2][this.size] = 0;
+    this.value[0][1] = 1;
+    this.value[this.size - 2][this.size - 1] = 1;
   }
 
   getMaze() {
@@ -96,10 +96,10 @@ export default class Maze implements MazeConfig {
   }
 
   private buildIsFinish(): boolean {
-    const firstCasll = this.value[1][1];
+    const firstCell = this.value[1][1];
     for (let i = 0; i < this.size; i += 2) {
       for (let j = 0; j < this.size; j += 2) {
-        if (firstCasll !== this.value[i][j]) {
+        if (firstCell !== this.value[i][j]) {
           return false;
         }
       }
@@ -110,9 +110,8 @@ export default class Maze implements MazeConfig {
   build() {
     this.createGrid();
     this.createStartAndEnd();
-    this.draw();
-
     this.fillWithRandomValue();
+
     this.draw();
   }
 

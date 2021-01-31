@@ -7,20 +7,11 @@ import { MazeConfig } from "../MazeConfig";
 import FakeRand from "../FakeRand";
 
 @binding()
-export class FillWithRandomValueSteps {
+export class createStartAndEndSteps {
   private mazeSize: number = 0;
   private maze: Maze | undefined;
-
   private rand: Random = new FakeRand();
   private mazeConfig: MazeConfig = getDefaultMazeConfig();
-
-  private expectedMazeForSize5 = [
-    [-1, -1, -1, -1, -1],
-    [-1, 7, -1, 6, -1],
-    [-1, -1, -1, -1, -1],
-    [-1, 9, -1, 7, -1],
-    [-1, -1, -1, -1, -1],
-  ];
 
   @given(/a Maze of size (\d*)/)
   givenAMazeOfSize(size: string) {
@@ -32,15 +23,22 @@ export class FillWithRandomValueSteps {
     this.maze.createGrid();
   }
 
-  @when(/I call fillWithRandomValue/)
-  whenICallFillWithRandomValue() {
-    this.maze?.fillWithRandomValue();
+  @when(/i try to create the start and the end/)
+  whenIcreateStartAndEnd() {
+    this.maze?.createStartAndEnd();
   }
 
-  @then(/the value should be as expected/)
-  ThenTheValueShouldBe() {
-    const actual = this.maze?.getMaze();
+  @then(/the maze should be as expected with start and end/)
+  thenTheMazeShouldHaveStartAndEnd() {
+    if (this.maze === undefined) {
+      throw new Error("maze should not be undefined");
+      return;
+    }
+    const maze = this.maze?.getMaze();
+    const start = maze[0][1];
+    const end = maze[this.mazeSize - 2][this.mazeSize - 1];
 
-    assert.deepEqual(actual, this.expectedMazeForSize5);
+    assert.equal(1, start);
+    assert.equal(1, end);
   }
 }
