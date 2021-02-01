@@ -91,11 +91,6 @@ export default class Maze implements MazeConfig {
     return this.value;
   }
 
-  setMaze(value: number[][]): Maze {
-    this.value = value;
-    return this;
-  }
-
   breakWall() {
     while (!this.buildIsFinish()) {}
   }
