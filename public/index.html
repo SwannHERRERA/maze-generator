@@ -9,9 +9,9 @@
     <script type="module" src="../dist/index.js"></script>
   </head>
   <body class="bg-gray-100 dark:bg-gray-800 min-h-screen">
-    <h1>Maze generator</h1>
+    <h1 data-cy="title" >Maze generator</h1>
     <div class="card-container">
-      <form id="maze-generation-form" class="card">
+      <form id="maze-generation-form" class="card" data-cy="submit-form">
         <div class="form-grid">
           <div class="form-group">
             <label for="">Taille</label>
@@ -19,7 +19,7 @@
           </div>
           <div class="form-group">
             <label for="">Type of sale</label>
-            <select name="" id="">
+            <select data-cy="form-select-sale" name="" id="">
               <option value="triangular">triangular</option>
               <option value="Octogonal">Octogonal</option>
               <option value="Exagonal">Exagonal</option>
@@ -28,7 +28,7 @@
           </div>
           <div class="form-group">
             <label for="">Shape of the maze</label>
-            <select name="" id="">
+            <select data-cy="form-select-maze" name="" id="">
               <option value="Hexagonal">Hexagonal</option>
               <option value="circular">circular</option>
               <option value="triangular">triangular</option>
@@ -37,16 +37,16 @@
           </div>
           <div class="form-group">
             <label for="">Where to start</label>
-            <input type="text" />
+            <input data-cy="form-input-start" type="text" />
           </div>
           <div class="form-group">
             <label for="">Color</label>
-            <input type="text" />
+            <input data-cy="form-input-color" type="text" />
           </div>
         </div>
-        <p class="text-center"><button class="btn">Générer</button></p>
+        <p class="text-center"><button class="btn" data-cy="submit-button">Générer</button></p>
       </form>
     </div>
-    <div id="result"></div>
+    <div id="result" data-cy="result-div"></div>
   </body>
 </html>

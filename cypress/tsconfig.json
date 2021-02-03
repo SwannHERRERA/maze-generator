@@ -1,0 +1,12 @@
+
+{
+  "module": "es6",
+  "target": "es6",
+  "types": ["cypress"],
+  "allowJs": true,
+  "include": [
+    "integration/*.ts",
+    "support/*.ts",
+    "../node_modules/cypress"
+  ]
+}
