@@ -102,10 +102,16 @@ export default class Maze implements MazeConfig {
 
   breakWalls() {
     const points: Point[] = this.createAllCoupleOfCell();
-    while (this.buildIsFinish() === false) {
+    this.breakWallsLoop(points);
+  }
+  breakWallsLoop(points: Point[]) {
+    setTimeout(() => {
       this.breakWall(points);
       this.draw();
-    }
+      if (this.buildIsFinish() === false) {
+        this.breakWallsLoop(points);
+      }
+    }, 2);
   }
 
   private breakWall(points: Point[]) {
