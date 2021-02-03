@@ -10,34 +10,37 @@ import FakeRand from "../FakeRand";
 export class FillWithRandomValueSteps {
   private mazeSize: number = 0;
   private maze: Maze | undefined;
-  private expectedMazeForSize6 = [
-    [7, 6, 9, 7, 6, 9],
-    [0, 9, 4, 8, 9, 7],
-    [6, 5, 8, 8, 7, 0],
-    [3, 1, 0, 1, 5, 3],
-    [1, 3, 3, 6, 9, 1],
-    [1, 5, 2, 0, 3, 8],
+
+  private rand: Random = new FakeRand();
+  private mazeConfig: MazeConfig = getDefaultMazeConfig();
+
+  private expectedMazeForSize5 = [
+    [-1, -1, -1, -1, -1],
+    [-1, 0, -1, 1, -1],
+    [-1, -1, -1, -1, -1],
+    [-1, 2, -1, 3, -1],
+    [-1, -1, -1, -1, -1],
   ];
 
   @given(/a Maze of size (\d*)/)
   givenAMazeOfSize(size: string) {
     this.mazeSize = Number(size);
-    const rand: Random = new FakeRand();
-    const mazeConfig: MazeConfig = getDefaultMazeConfig();
 
-    mazeConfig.size = this.mazeSize;
+    this.mazeConfig.size = this.mazeSize;
 
-    this.maze = new Maze(mazeConfig, rand);
+    this.maze = new Maze(this.mazeConfig, this.rand);
+    this.maze.createGrid();
   }
 
   @when(/I call fillWithRandomValue/)
   whenICallFillWithRandomValue() {
-    this.maze?.fillWithRandomValue();
+    this.maze?.fillCells();
   }
 
   @then(/the value should be as expected/)
   ThenTheValueShouldBe() {
     const actual = this.maze?.getMaze();
-    assert.deepEqual(actual, this.expectedMazeForSize6);
+
+    assert.deepEqual(actual, this.expectedMazeForSize5);
   }
 }

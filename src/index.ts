@@ -13,7 +13,7 @@ const mazeConfig: MazeConfig = {
   shapeOfTheMaze: shapeOfTheMaze.rectangular,
   whereToStart: "top-left",
   color: "#003021",
-  size: 41,
+  size: 51,
   typeOfSolution: typeOfSolution.shortest,
   crossing: false,
   manualSolvingSystem: false,
@@ -27,6 +27,7 @@ if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const maze = new Maze(mazeConfig, rand);
+
     maze.build();
   });
 }

@@ -15,7 +15,7 @@ export const option = {
 
 const loadTest = () => {
   const res = http.get("https://zigzag-generator.netlify.app/");
-  check(res, { "status was 200": (r) => r.status == 200 });
+  check(res, { "status was 200": (r) => r.status === 200 });
   sleep(1);
 };
 
