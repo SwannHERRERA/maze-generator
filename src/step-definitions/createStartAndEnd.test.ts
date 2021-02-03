@@ -38,7 +38,7 @@ export class createStartAndEndSteps {
     const start = maze[0][1];
     const end = maze[this.mazeSize - 2][this.mazeSize - 1];
 
-    assert.equal(1, start);
-    assert.equal(1, end);
+    assert.notEqual(-1, start);
+    assert.notEqual(-1, end);
   }
 }

@@ -1,6 +1,11 @@
 import { Color, Svg, SVG } from "@svgdotjs/svg.js";
 import Maze from "../Maze";
-
+const colors: string[] = [];
+for (let g = 0; g < 100; g += 1) {
+  colors.push(
+    "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0")
+  );
+}
 class MazeDrawer {
   maze: Maze;
   drawer: Svg;
@@ -45,18 +50,18 @@ class MazeDrawer {
   }
 
   private selectColor(i: number, j: number) {
-    const colors = [
-      "#03071e",
-      "#370617",
-      "#6a040f",
-      "#9d0208",
-      "#d00000",
-      "#dc2f02",
-      "#e85d04",
-      "#f48c06",
-      "#faa307",
-      "#ffb703",
-    ];
+    // const colors = [
+    //   "#03071e",
+    //   "#370617",
+    //   "#6a040f",
+    //   "#9d0208",
+    //   "#d00000",
+    //   "#dc2f02",
+    //   "#e85d04",
+    //   "#f48c06",
+    //   "#faa307",
+    //   "#ffb703",
+    // ];
     if (this.maze.value[i][j] > colors.length) {
       throw new Error("Invalid color selected");
     }

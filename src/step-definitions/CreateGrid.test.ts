@@ -8,7 +8,6 @@ import FakeRand from "../FakeRand";
 
 @binding()
 export class CreateGridSteps {
-  private size: number = 0;
   private config: MazeConfig = getDefaultMazeConfig();
   private random: Random = new FakeRand();
 
