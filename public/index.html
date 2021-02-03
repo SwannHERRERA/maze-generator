@@ -8,8 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.0/dist/svg.min.js"></script>
     <script type="module" src="../dist/index.js"></script>
   </head>
-  <body class="bg-gray-100 dark:bg-gray-800 min-h-screen">
-    <h1 data-cy="title" >Maze generator</h1>
+  <body>
+    <h1 data-cy="title">Maze generator</h1>
     <div class="card-container">
       <form id="maze-generation-form" class="card" data-cy="submit-form">
         <div class="form-grid">
@@ -44,7 +44,9 @@
             <input data-cy="form-input-color" type="text" />
           </div>
         </div>
-        <p class="text-center"><button class="btn" data-cy="submit-button">Générer</button></p>
+        <p class="text-center">
+          <button class="btn" data-cy="submit-button">Générer</button>
+        </p>
       </form>
     </div>
     <div id="result" data-cy="result-div"></div>
