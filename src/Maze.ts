@@ -9,12 +9,6 @@ import Random from "./Random";
 import MazeDrawer from "./presentation/MazeDrawer";
 import Rand from "./Rand";
 
-interface Point {
-  x: number;
-  y: number;
-  neighbour: Point[];
-}
-
 export default class Maze implements MazeConfig {
   typeOfCell: typeOfCell;
   shapeOfTheMaze: shapeOfTheMaze;
