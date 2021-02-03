@@ -24,7 +24,7 @@ export default class Maze implements MazeConfig {
   typeOfSolution: typeOfSolution;
   crossing: boolean;
   manualSolvingSystem: boolean;
-  // drawer: MazeDrawer = new MazeDrawer(this);
+  drawer: MazeDrawer = new MazeDrawer(this);
 
   Random: Random;
   value: number[][];
@@ -104,6 +104,7 @@ export default class Maze implements MazeConfig {
     const points: Point[] = this.createAllCoupleOfCell();
     while (this.buildIsFinish() === false) {
       this.breakWall(points);
+      this.draw();
     }
   }
 
@@ -231,9 +232,6 @@ export default class Maze implements MazeConfig {
 
   build() {
     this.createGrid();
-    // this.fillWithRandomValue();
-    // this.createStartAndEnd();
-    // this.breakWalls();
     const loopSubject: Function[] = [
       this.fillCells.bind(this),
       this.createStartAndEnd.bind(this),
@@ -254,6 +252,6 @@ export default class Maze implements MazeConfig {
   }
 
   draw() {
-    // this.drawer.draw();
+    this.drawer.draw();
   }
 }
