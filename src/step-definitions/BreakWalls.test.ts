@@ -22,7 +22,7 @@ export class BreakWallsSteps {
 
     this.maze = new Maze(this.config, this.random);
     this.maze.createGrid();
-    this.maze.fillWithRandomValue();
+    this.maze.fillCells();
     this.maze.createStartAndEnd();
   }
 
@@ -34,12 +34,13 @@ export class BreakWallsSteps {
   @then(/The maze sould be as expected/)
   test_maze() {
     const expected = [
-      [-1, 6, -1, -1, -1],
-      [-1, 6, 6, 6, -1],
-      [-1, 6, -1, 6, -1, 6],
-      [-1, 6, -1, 6, 6, 6],
-      [-1, -1, -1, -1, -1, 6],
+      [-1, 0, -1, -1, -1],
+      [-1, 0, 0, 0, -1],
+      [-1, -1, -1, 0, -1, 0],
+      [-1, 0, 0, 0, 0, 0],
+      [-1, -1, -1, -1, -1, 0],
     ];
+
     assert.deepEqual(this.maze.value, expected);
   }
 }

@@ -34,7 +34,7 @@ export class FillWithRandomValueSteps {
 
   @when(/I call fillWithRandomValue/)
   whenICallFillWithRandomValue() {
-    this.maze?.fillCell();
+    this.maze?.fillCells();
   }
 
   @then(/the value should be as expected/)

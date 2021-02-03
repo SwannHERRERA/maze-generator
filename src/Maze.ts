@@ -79,7 +79,7 @@ export default class Maze implements MazeConfig {
     return true;
   }
 
-  fillCell() {
+  fillCells() {
     let counter = 0;
     for (let i = 1; i < this.size - 1; i += 2) {
       for (let j = 1; j < this.size - 1; j += 2) {
@@ -235,7 +235,7 @@ export default class Maze implements MazeConfig {
     // this.createStartAndEnd();
     // this.breakWalls();
     const loopSubject: Function[] = [
-      this.fillCell.bind(this),
+      this.fillCells.bind(this),
       this.createStartAndEnd.bind(this),
       this.breakWalls.bind(this),
     ];

@@ -27,6 +27,7 @@ if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const maze = new Maze(mazeConfig, rand);
+
     maze.build();
   });
 }
