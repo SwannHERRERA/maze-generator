@@ -79,12 +79,12 @@ export default class Maze implements MazeConfig {
     return true;
   }
 
-  fillWithRandomValue() {
-    for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j < this.size; j++) {
-        if (this.value[i][j] === 0) {
-          this.value[i][j] = this.Random.nextInt(100);
-        }
+  fillCell() {
+    let counter = 0;
+    for (let i = 1; i < this.size - 1; i += 2) {
+      for (let j = 1; j < this.size - 1; j += 2) {
+        this.value[i][j] = counter;
+        counter += 1;
       }
     }
   }
@@ -191,59 +191,66 @@ export default class Maze implements MazeConfig {
   }
 
   private createAllCoupleOfCell() {
-    // this is for pass test
-    const p1: Point = {
-      x: 1,
-      y: 1,
-      neighbour: [],
-    };
-    const p2: Point = {
-      x: 3,
-      y: 1,
-      neighbour: [],
-    };
-    const p3: Point = {
-      x: 1,
-      y: 3,
-      neighbour: [],
-    };
-    const p4: Point = {
-      x: 3,
-      y: 3,
-      neighbour: [],
-    };
-    p1.neighbour = [p2, p3];
-    p2.neighbour = [p1, p4];
-    p3.neighbour = [p1, p4];
-    p4.neighbour = [p2, p3];
-    return [p1, p2, p3, p4];
+    const points: Point[] = [];
+    for (let i = 1; i < this.size - 1; i += 2) {
+      for (let j = 1; j < this.size - 1; j += 2) {
+        points.push({ x: i, y: j, neighbour: [] });
+      }
+    }
+    points.map((point: Point) => {
+      points
+        .filter((potentialNeighbour: Point) => {
+          return (
+            (potentialNeighbour.x === point.x &&
+              potentialNeighbour.y === point.y + 2) ||
+            (potentialNeighbour.x === point.x &&
+              potentialNeighbour.y === point.y - 2) ||
+            (potentialNeighbour.x === point.x + 2 &&
+              potentialNeighbour.y === point.y) ||
+            (potentialNeighbour.x === point.x - 2 &&
+              potentialNeighbour.y === point.y)
+          );
+        })
+        .map((neighbour: Point) => point.neighbour.push(neighbour));
+    });
+
+    return points;
   }
 
   private buildIsFinish(): boolean {
     const firstCell = this.value[1][1];
-    return (
-      this.value[1][1] === this.value[1][3] &&
-      this.value[1][1] === this.value[3][3] &&
-      this.value[1][1] === this.value[3][1]
-    );
-    // for (let i = 0; i < this.size - 1; i += 2) {
-    //   for (let j = 0; j < this.size - 1; j += 2) {
-    //     if (firstCell !== this.value[i][j]) {
-    //       return false;
-    //     }
-    //   }
-    // }
-    // return true;
+    for (let i = 1; i < this.size - 1; i += 2) {
+      for (let j = 1; j < this.size - 1; j += 2) {
+        if (firstCell !== this.value[i][j]) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   build() {
     this.createGrid();
-    this.fillWithRandomValue();
-    this.createStartAndEnd();
-    this.breakWalls();
+    // this.fillWithRandomValue();
+    // this.createStartAndEnd();
+    // this.breakWalls();
+    const loopSubject: Function[] = [
+      this.fillCell.bind(this),
+      this.createStartAndEnd.bind(this),
+      this.breakWalls.bind(this),
+    ];
+    let i = 0;
+    const loopFunction = () => {
+      loopSubject[i]();
+      i += 1;
+      this.draw();
+      if (i < loopSubject.length) {
+        setTimeout(loopFunction, 500);
+      }
+    };
+    loopFunction();
 
-    // this.draw();
-    console.table(this.value);
+    // console.table(this.value);
   }
 
   draw() {

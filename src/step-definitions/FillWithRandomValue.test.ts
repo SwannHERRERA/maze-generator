@@ -16,9 +16,9 @@ export class FillWithRandomValueSteps {
 
   private expectedMazeForSize5 = [
     [-1, -1, -1, -1, -1],
-    [-1, 7, -1, 6, -1],
+    [-1, 0, -1, 1, -1],
     [-1, -1, -1, -1, -1],
-    [-1, 9, -1, 7, -1],
+    [-1, 2, -1, 3, -1],
     [-1, -1, -1, -1, -1],
   ];
 
@@ -34,7 +34,7 @@ export class FillWithRandomValueSteps {
 
   @when(/I call fillWithRandomValue/)
   whenICallFillWithRandomValue() {
-    this.maze?.fillWithRandomValue();
+    this.maze?.fillCell();
   }
 
   @then(/the value should be as expected/)

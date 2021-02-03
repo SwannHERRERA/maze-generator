@@ -1,7 +1,7 @@
 import { Color, Svg, SVG } from "@svgdotjs/svg.js";
 import Maze from "../Maze";
 const colors: string[] = [];
-for (let g = 0; g < 100; g += 1) {
+for (let g = 0; g < 1000; g += 1) {
   colors.push(
     "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0")
   );
