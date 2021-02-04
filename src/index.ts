@@ -24,7 +24,7 @@ const rand = new Rand();
 
 const form = document.querySelector("#maze-generation-form");
 const resolveBtn = document.querySelector("#reslove");
-let maze: Maze | null = null;
+let maze: Maze = new Maze(mazeConfig, rand);
 if (form) {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -39,9 +39,6 @@ if (form) {
 }
 
 resolveBtn?.addEventListener("click", () => {
-  if (typeof maze === "undefined") {
-    throw new Error("Maze should be define for resolve");
-  }
   const solver = new Solver(
     maze.getMaze(),
     [0, 1],
