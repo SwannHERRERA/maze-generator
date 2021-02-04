@@ -17,7 +17,7 @@ export class BreakWallsSteps {
 
   private maze: Maze;
   @given(/a maze of (\d*) with cell filled/)
-  given_a_maze_wth_cell_filled(size: string) {
+  givenAMazeWithCellFilled(size: string) {
     this.config.size = Number(size);
 
     this.maze = new Maze(this.config, this.random);
@@ -27,12 +27,12 @@ export class BreakWallsSteps {
   }
 
   @when(/i break Walls/)
-  when_i_break_wall() {
+  whenIBreakWalls() {
     this.maze.breakWalls();
   }
 
   @then(/The maze sould be as expected/)
-  test_maze() {
+  testMaze() {
     const expected = [
       [-1, 0, -1, -1, -1],
       [-1, 0, 0, 0, -1],

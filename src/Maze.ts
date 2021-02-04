@@ -226,21 +226,11 @@ export default class Maze implements MazeConfig {
 
   build() {
     this.createGrid();
-    const loopSubject: Function[] = [
-      this.fillCells.bind(this),
-      this.createStartAndEnd.bind(this),
-      this.breakWalls.bind(this),
-    ];
-    let i = 0;
-    const loopFunction = () => {
-      loopSubject[i]();
-      i += 1;
-      this.draw();
-      if (i < loopSubject.length) {
-        setTimeout(loopFunction, 500);
-      }
-    };
-    loopFunction();
+    this.fillCells();
+    this.createStartAndEnd();
+    this.breakWalls();
+
+    this.draw();
 
     // console.table(this.value);
   }
