@@ -30,9 +30,8 @@ export class createStartAndEndSteps {
 
   @then(/the maze should be as expected with start and end/)
   thenTheMazeShouldHaveStartAndEnd() {
-    if (this.maze === undefined) {
+    if (typeof this.maze === "undefined") {
       throw new Error("maze should not be undefined");
-      return;
     }
     const maze = this.maze?.getMaze();
     const start = maze[0][1];

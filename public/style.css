@@ -47,6 +47,10 @@
   #result {
     @apply m-4 min-h-screen;
   }
+
+  .bottom-box {
+    @apply z-10 fixed w-screen bottom-0 dark:bg-gray-900 border-lime-600 border-t p-5 flex justify-center items-center;
+  }
 }
 
 @tailwind utilities;

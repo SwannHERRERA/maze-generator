@@ -1,4 +1,3 @@
-import { SVG } from "@svgdotjs/svg.js";
 import {
   MazeConfig,
   shapeOfTheMaze,
@@ -7,13 +6,7 @@ import {
 } from "./MazeConfig";
 import Random from "./Random";
 import MazeDrawer from "./presentation/MazeDrawer";
-import Rand from "./Rand";
-
-interface Point {
-  x: number;
-  y: number;
-  neighbour: Point[];
-}
+import Point from "./Point";
 
 export default class Maze implements MazeConfig {
   typeOfCell: typeOfCell;
@@ -107,11 +100,7 @@ export default class Maze implements MazeConfig {
   breakWallsLoop(points: Point[]) {
     setTimeout(() => {
       this.breakWall(points);
-      this.draw();
-      if (this.buildIsFinish() === false) {
-        this.breakWallsLoop(points);
-      }
-    }, 2);
+    }
   }
 
   private breakWall(points: Point[]) {
@@ -197,6 +186,21 @@ export default class Maze implements MazeConfig {
     return [wallX, wallY];
   }
 
+  private filterPotentialNeighbour(
+    potentialNeighbour: Point,
+    point: Point
+  ): boolean {
+    return (
+      (potentialNeighbour.x === point.x &&
+        potentialNeighbour.y === point.y + 2) ||
+      (potentialNeighbour.x === point.x &&
+        potentialNeighbour.y === point.y - 2) ||
+      (potentialNeighbour.x === point.x + 2 &&
+        potentialNeighbour.y === point.y) ||
+      (potentialNeighbour.x === point.x - 2 && potentialNeighbour.y === point.y)
+    );
+  }
+
   private createAllCoupleOfCell() {
     const points: Point[] = [];
     for (let i = 1; i < this.size - 1; i += 2) {
@@ -206,18 +210,9 @@ export default class Maze implements MazeConfig {
     }
     points.map((point: Point) => {
       points
-        .filter((potentialNeighbour: Point) => {
-          return (
-            (potentialNeighbour.x === point.x &&
-              potentialNeighbour.y === point.y + 2) ||
-            (potentialNeighbour.x === point.x &&
-              potentialNeighbour.y === point.y - 2) ||
-            (potentialNeighbour.x === point.x + 2 &&
-              potentialNeighbour.y === point.y) ||
-            (potentialNeighbour.x === point.x - 2 &&
-              potentialNeighbour.y === point.y)
-          );
-        })
+        .filter((potentialNeighbour) =>
+          this.filterPotentialNeighbour(potentialNeighbour, point)
+        )
         .map((neighbour: Point) => point.neighbour.push(neighbour));
     });
 
@@ -238,26 +233,12 @@ export default class Maze implements MazeConfig {
 
   build() {
     this.createGrid();
-    const loopSubject: Function[] = [
-      this.fillCells.bind(this),
-      this.createStartAndEnd.bind(this),
-      this.breakWalls.bind(this),
-    ];
-    let i = 0;
-    const loopFunction = () => {
-      loopSubject[i]();
-      i += 1;
-      this.draw();
-      if (i < loopSubject.length) {
-        setTimeout(loopFunction, 500);
-      }
-    };
-    loopFunction();
-
-    // console.table(this.value);
+    this.fillCells();
+    this.createStartAndEnd();
+    this.breakWalls();
   }
 
-  draw() {
-    this.drawer.draw();
+  draw(resolveMode: boolean) {
+    this.drawer.draw(resolveMode);
   }
 }
