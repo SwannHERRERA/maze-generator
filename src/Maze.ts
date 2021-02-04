@@ -17,7 +17,7 @@ export default class Maze implements MazeConfig {
   typeOfSolution: typeOfSolution;
   crossing: boolean;
   manualSolvingSystem: boolean;
-  // drawer: MazeDrawer = new MazeDrawer(this);
+  drawer: MazeDrawer = new MazeDrawer(this);
 
   Random: Random;
   value: number[][];
@@ -236,6 +236,6 @@ export default class Maze implements MazeConfig {
   }
 
   draw(resolveMode: boolean) {
-    // this.drawer.draw(resolveMode);
+    this.drawer.draw(resolveMode);
   }
 }
