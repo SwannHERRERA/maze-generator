@@ -6,7 +6,7 @@ import Solver from "../Solver";
 export class SolverSteps {
   // FOR NO ERROR
   constructor() {
-    this.maze = [];
+    this.maze = [[]];
     this.solver = new Solver(this.maze, [0, 0], [0, 0]);
     this.sizeX = 0;
     this.sizeY = 0;
@@ -21,14 +21,17 @@ export class SolverSteps {
   givenAMazeOfSize(sizeX: number, sizeY: number) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
-    for (let i = 0; i < sizeX; i++) {
-      for (let j = 0; j < sizeY; j++) {
+    for (let i = 0; i < sizeX - 1; i++) {
+      this.maze[i] = [];
+      for (let j = 0; j < sizeY - 1; j++) {
         if (i === 0 || j === 0 || i === sizeX - 1 || j === sizeY - 1) {
           this.maze[i][j] = -1;
         } else {
           this.maze[i][j] = 0;
         }
       }
+      console.log(this.maze);
+
       this.setStartAndEnd();
     }
   }

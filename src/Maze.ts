@@ -8,6 +8,7 @@ import {
 import Random from "./Random";
 import MazeDrawer from "./presentation/MazeDrawer";
 import Rand from "./Rand";
+import Point from "./Point";
 
 export default class Maze implements MazeConfig {
   typeOfCell: typeOfCell;
