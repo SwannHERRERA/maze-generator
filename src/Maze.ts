@@ -98,7 +98,6 @@ export default class Maze implements MazeConfig {
     const points: Point[] = this.createAllCoupleOfCell();
     while (this.buildIsFinish() === false) {
       this.breakWall(points);
-      this.draw();
     }
   }
 
