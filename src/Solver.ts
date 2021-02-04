@@ -1,11 +1,49 @@
 import { Number } from "@svgdotjs/svg.js";
 
 export default class Solver {
+  drawResult() {
+    let [x, y] = this.end;
+    while (this.IGotANeighbourBetterThanMe(x, y)) {
+      const expected = this.maze[x][y] - 1;
+      this.maze[x][y] = -20;
+      if (x + 1 < this.maze.length && this.maze[x + 1][y] === expected) {
+        x += 1;
+      } else if (x - 1 > -1 && this.maze[x - 1][y] === expected) {
+        x -= 1;
+      } else if (y + 1 < this.maze.length && this.maze[x][y + 1] === expected) {
+        y += 1;
+      } else if (y - 1 > -1 && this.maze[x][y - 1] === expected) {
+        y -= 1;
+      }
+    }
+  }
+
+  IGotANeighbourBetterThanMe(x: number, y: number) {
+    if (x === this.start[0] && y === this.start[1]) {
+      this.maze[x][y] = -20;
+      return false;
+    }
+    if (x + 1 < this.maze.length && this.maze[x][y] > this.maze[x + 1][y]) {
+      return true;
+    }
+    if (x - 1 > -1 && this.maze[x][y] > this.maze[x - 1][y]) {
+      return true;
+    }
+    if (y + 1 < this.maze.length && this.maze[x][y] > this.maze[x][y + 1]) {
+      return true;
+    }
+    if (y - 1 > -1 && this.maze[x][y] > this.maze[x][y - 1]) {
+      return true;
+    }
+    return false;
+  }
+  makeResultPath() {}
+
   getShortestPathLonger(): number {
-    throw new Error("Method not implemented.");
+    return this.maze[this.end[0]][this.end[1]];
   }
   getRank(): number[][] {
-    throw new Error("Method not implemented.");
+    return this.maze;
   }
   private maze: number[][];
   private start: [number, number];

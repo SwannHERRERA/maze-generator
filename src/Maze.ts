@@ -1,4 +1,3 @@
-import { SVG } from "@svgdotjs/svg.js";
 import {
   MazeConfig,
   shapeOfTheMaze,
@@ -7,7 +6,6 @@ import {
 } from "./MazeConfig";
 import Random from "./Random";
 import MazeDrawer from "./presentation/MazeDrawer";
-import Rand from "./Rand";
 import Point from "./Point";
 
 export default class Maze implements MazeConfig {
@@ -19,7 +17,7 @@ export default class Maze implements MazeConfig {
   typeOfSolution: typeOfSolution;
   crossing: boolean;
   manualSolvingSystem: boolean;
-  drawer: MazeDrawer = new MazeDrawer(this);
+  // drawer: MazeDrawer = new MazeDrawer(this);
 
   Random: Random;
   value: number[][];
@@ -185,6 +183,21 @@ export default class Maze implements MazeConfig {
     return [wallX, wallY];
   }
 
+  private filterPotentialNeighbour(
+    potentialNeighbour: Point,
+    point: Point
+  ): boolean {
+    return (
+      (potentialNeighbour.x === point.x &&
+        potentialNeighbour.y === point.y + 2) ||
+      (potentialNeighbour.x === point.x &&
+        potentialNeighbour.y === point.y - 2) ||
+      (potentialNeighbour.x === point.x + 2 &&
+        potentialNeighbour.y === point.y) ||
+      (potentialNeighbour.x === point.x - 2 && potentialNeighbour.y === point.y)
+    );
+  }
+
   private createAllCoupleOfCell() {
     const points: Point[] = [];
     for (let i = 1; i < this.size - 1; i += 2) {
@@ -194,18 +207,9 @@ export default class Maze implements MazeConfig {
     }
     points.map((point: Point) => {
       points
-        .filter((potentialNeighbour: Point) => {
-          return (
-            (potentialNeighbour.x === point.x &&
-              potentialNeighbour.y === point.y + 2) ||
-            (potentialNeighbour.x === point.x &&
-              potentialNeighbour.y === point.y - 2) ||
-            (potentialNeighbour.x === point.x + 2 &&
-              potentialNeighbour.y === point.y) ||
-            (potentialNeighbour.x === point.x - 2 &&
-              potentialNeighbour.y === point.y)
-          );
-        })
+        .filter((potentialNeighbour) =>
+          this.filterPotentialNeighbour(potentialNeighbour, point)
+        )
         .map((neighbour: Point) => point.neighbour.push(neighbour));
     });
 
@@ -229,13 +233,9 @@ export default class Maze implements MazeConfig {
     this.fillCells();
     this.createStartAndEnd();
     this.breakWalls();
-
-    this.draw();
-
-    // console.table(this.value);
   }
 
-  draw() {
-    this.drawer.draw();
+  draw(resolveMode: boolean) {
+    // this.drawer.draw(resolveMode);
   }
 }

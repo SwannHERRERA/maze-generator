@@ -1,74 +1,128 @@
 import { binding, given, then, when } from "cucumber-tsflow";
 import { assert } from "chai";
 import Solver from "../Solver";
+import Maze from "../Maze";
+import getDefaultMazeConfig from "./MazeTestHelper";
+import { MazeConfig } from "../MazeConfig";
+import FakeRand from "../FakeRand";
+import Random from "../Random";
 
 @binding()
 export class SolverSteps {
+  private mazeSize: number = 0;
+  private maze: Maze | undefined;
+
+  private rand: Random = new FakeRand();
+  private mazeConfig: MazeConfig = getDefaultMazeConfig();
+  private solvers: Solver[];
+  private mazes: number[][][];
+  private cursors: number[][];
+
   // FOR NO ERROR
   constructor() {
-    this.maze = [[]];
-    this.solver = new Solver(this.maze, [0, 0], [0, 0]);
-    this.sizeX = 0;
-    this.sizeY = 0;
+    this.maze = new Maze(this.mazeConfig, this.rand);
+    this.mazeSize = this.maze.size;
+    this.solvers = [];
+    this.mazes = [];
+    this.cursors = [];
   }
 
-  private maze: number[][];
-  private solver: Solver;
-  private sizeX: number;
-  private sizeY: number;
-
-  @given(/a maze (\d*) * (\d*)/)
-  givenAMazeOfSize(sizeX: number, sizeY: number) {
-    this.sizeX = sizeX;
-    this.sizeY = sizeY;
-    for (let i = 0; i < sizeX - 1; i++) {
-      this.maze[i] = [];
-      for (let j = 0; j < sizeY - 1; j++) {
-        if (i === 0 || j === 0 || i === sizeX - 1 || j === sizeY - 1) {
-          this.maze[i][j] = -1;
-        } else {
-          this.maze[i][j] = 0;
-        }
-      }
-      console.log(this.maze);
-
-      this.setStartAndEnd();
+  @given(/Different mazes/)
+  givenDifferentMaze() {
+    const sizes = [5, 11, 15, 20, 25];
+    for (let size of sizes) {
+      this.mazeConfig.size = size;
+      const maze = new Maze(this.mazeConfig, this.rand);
+      maze.build();
+      this.mazes.push(maze.getMaze());
     }
   }
 
-  private setStartAndEnd() {
-    this.maze[0][1] = 0;
-    this.maze[this.sizeX - 2][this.sizeY - 1] = 0;
+  @when(/I want to solve them/)
+  whenIWantToSolveThem() {
+    for (const maze of this.mazes) {
+      const solver = new Solver(
+        maze,
+        [0, 1],
+        [maze.length - 2, maze.length - 1]
+      );
+      solver.rankCell();
+      this.solvers.push(solver);
+    }
   }
 
-  @when(/i map the grid/)
-  whenIMapTheGrid() {
-    this.solver = new Solver(
-      this.maze,
-      [0, 1],
-      [this.sizeX - 2, this.sizeY - 1]
-    );
-    this.solver.rankCell();
+  @then(/the length is as expected/)
+  thenTheLengthIsAsExpected() {
+    const expectedResult = [6, 18, 30, -1, 46];
+
+    for (let i = 0; i < this.solvers.length; i++) {
+      const actual = this.solvers[i].getShortestPathLonger();
+      assert.equal(actual, expectedResult[i]);
+    }
   }
 
-  @then(/he should rank the case/)
-  thenHeSouldRankTheCell() {
-    const ranking = this.solver.getRank();
-    const rankingExpected = [
-      [-1, -1, -1, -1, -1, -1, -1],
-      [0, 1, 2, 3, -1, -1, -1],
-      [-1, 2, 3, 4, 5, 6, -1],
-      [-1, 3, 4, 5, 6, 7, -1],
-      [-1, 4, 5, 6, 7, 8, -1],
-      [-1, 5, 6, 7, 8, 9, -1],
-      [-1, -1, -1, -1, -1, 10, -1],
-    ];
-    assert.deepEqual(ranking, rankingExpected);
+  @given(/mazes with solution/)
+  givenMazeWithSolution() {
+    this.mazes = [];
+    const sizes = [5, 11, 15, 20, 25];
+    for (let size of sizes) {
+      this.mazeConfig.size = size;
+      const maze = new Maze(this.mazeConfig, this.rand);
+      maze.build();
+      const solver = new Solver(
+        maze.getMaze(),
+        [0, 1],
+        [maze.size - 2, maze.size - 1]
+      );
+      solver.rankCell();
+      solver.drawResult();
+      this.mazes.push(maze.getMaze());
+    }
   }
 
-  @then(/he sould tell me the shortest path is (\d*) long/)
-  thenHeSouldTellMeTheShortestPathIs(expectedShortestPathLonger: number) {
-    const actualShortestPath = this.solver.getShortestPathLonger();
-    assert.equal(actualShortestPath, expectedShortestPathLonger);
+  @when(/i follow the green line from start/)
+  whenIFollowTheGreenLine() {
+    let x = 0;
+    let y = 1;
+    for (const maze of this.mazes) {
+      while (this.haveGreenNeighboug(x, y, maze)) {
+        maze[x][y] = -5;
+        if (x + 1 < maze.length && maze[x + 1][y] === -20) {
+          x += 1;
+        } else if (x - 1 < maze.length && maze[x - 1][y] === -20) {
+          x -= 1;
+        } else if (y + 1 < maze.length && maze[x][y + 1] === -20) {
+          y += 1;
+        } else if (y - 1 < maze.length && maze[x][y - 1] === -20) {
+          y -= 1;
+        }
+      }
+      this.cursors.push([x, y]);
+    }
+  }
+
+  @then(/i fond end/)
+  thenIfoundEnd() {
+    for (let i = 0; i < this.mazes.length; i++) {
+      this.mazes[i];
+      assert.equal(this.cursors[i][0], this.mazes[i].length - 2);
+      assert.equal(this.cursors[i][1], this.mazes[i].length - 1);
+    }
+  }
+
+  private haveGreenNeighboug(x: number, y: number, maze: number[][]) {
+    if (x + 1 < maze.length && maze[x + 1][y] === -20) {
+      return true;
+    }
+    if (x - 1 > 0 && maze[x - 1][y] === -20) {
+      return true;
+    }
+    if (y + 1 < maze.length && maze[x][y + 1] === -20) {
+      return true;
+    }
+    if (y - 1 > 0 && maze[x][y - 1] === -20) {
+      return true;
+    }
+    return false;
   }
 }
