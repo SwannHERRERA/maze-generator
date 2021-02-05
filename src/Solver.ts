@@ -3,7 +3,7 @@ import { Number } from "@svgdotjs/svg.js";
 export default class Solver {
   drawResult() {
     let [x, y] = this.end;
-    while (this.IGotANeighbourBetterThanMe(x, y)) {
+    while (this.iGotANeighbourBetterThanMe(x, y)) {
       const expected = this.maze[x][y] - 1;
       this.maze[x][y] = -20;
       if (x + 1 < this.maze.length && this.maze[x + 1][y] === expected) {
@@ -18,7 +18,7 @@ export default class Solver {
     }
   }
 
-  IGotANeighbourBetterThanMe(x: number, y: number) {
+  iGotANeighbourBetterThanMe(x: number, y: number) {
     if (x === this.start[0] && y === this.start[1]) {
       this.maze[x][y] = -20;
       return false;

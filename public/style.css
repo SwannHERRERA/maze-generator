@@ -45,7 +45,7 @@
     @apply p-3 w-full md:w-1/3 rounded bg-gray-800 border-2 border-lime-700 text-orange-500 uppercase;
   }
   #result {
-    @apply m-4 min-h-screen;
+    @apply mb-44 min-h-screen;
   }
 
   .bottom-box {
