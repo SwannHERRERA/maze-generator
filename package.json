@@ -37,6 +37,8 @@
     "chai": "^4.2.0",
     "cucumber-tsflow": "^4.0.0-rc.1",
     "cypress": "^6.4.0",
+    "cypress-cucumber-preprocessor": "^4.0.0",
+    "cypress-webpack-preprocessor-v5": "^5.0.0-alpha.1",
     "postcss-cli": "^8.3.1",
     "snowpack": "^2.18.5",
     "ts-jest": "^26.4.4",
@@ -53,8 +55,6 @@
     "@svgdotjs/svg.js": "^3.0.16",
     "autoprefixer": "^10.1.0",
     "cross-env": "^7.0.3",
-    "cypress-cucumber-preprocessor": "^4.0.0",
-    "cypress-webpack-preprocessor-v5": "^5.0.0-alpha.1",
     "postcss": "^8.2.1",
     "tailwindcss": "^2.0.2"
   }
